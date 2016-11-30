@@ -1,6 +1,5 @@
 Sample library demonstrating a bug in `swift build`
 
-
 ```
 ❯ tree Sources
 Sources
@@ -30,4 +29,23 @@ Sources
 ❯ swift build
 Compile Swift Module 'Bug' (2 sources)
 ❯
+```
+
+To see the bug as it presents itself to a consumer:
+
+```
+❯ cd test
+❯ swift build
+Compile Swift Module 'Test' (1 sources)
+/Users/gordon/Code/gfontenot/SwiftPMCaseBug/test/Sources/main.swift:3:1: error: ambiguous use of 'foo()'
+foo()
+^
+Bug.foo:1:13: note: found this candidate
+public func foo()
+            ^
+Bug.foo:1:13: note: found this candidate
+public func foo()
+            ^
+<unknown>:0: error: build had 1 command failures
+error: exit(1): /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swift-build-tool -f /Users/gordon/Code/gfontenot/SwiftPMCaseBug/test/.build/debug.yaml
 ```
